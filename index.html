@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModelsLive | AI Systems for Real-World Multimodal Interaction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:       #1A1917;
+  --ink-muted: #5A5754;
+  --ink-faint: #A09D99;
+  --gray-bg:   #F4F4F2;
+  --gray-2:    #ECEAE6;
+  --border:    #E0DDD8;
+  --accent:    #2563EB;
+  --accent-lt: #DBEAFE;
+  --ff-d: 'Fraunces', Georgia, serif;
+  --ff-b: 'Outfit', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-b); color: var(--ink); line-height: 1.6; overflow-x: hidden;
+  background: var(--gray-bg) url('hero_bg.png') center top / cover fixed;
+}
+body::before { content:''; position:fixed; inset:0; z-index:-1; background:rgba(244,244,242,0.83); }
+::selection { background:var(--accent); color:white; }
+
+/* ── CENTERED CONTAINER ── */
+/* Every section's content goes inside .c which is always centered */
+.c {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100; height:60px;
+  background:rgba(255,255,255,0.95); backdrop-filter:blur(16px);
+}
+.nav-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 60px;
+  height: 60px; display:flex; align-items:center; justify-content:space-between;
+}
+.nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-logo-img { height:32px; width:auto; }
+.nav-logo-text { font-family:var(--ff-d); font-size:1rem; font-weight:400; color:var(--ink); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-size:0.78rem; font-weight:400; color:var(--ink-muted); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; transition:color 0.2s; }
+.nav-links a:hover { color:var(--ink); }
+.nav-cta { background:var(--accent)!important; color:white!important; padding:8px 18px; border-radius:4px; }
+
+/* HERO */
+.hero { min-height:100vh; display:flex; flex-direction:column; margin-top:-60px; }
+.hero-scene { flex:0 0 auto; height:calc(48vh + 60px); min-height:340px; position:relative; overflow:hidden; }
+.hero-scene img { width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block; }
+.hero-scene::after { content:''; position:absolute; bottom:0; left:0; right:0; height:200px; background:linear-gradient(to bottom,transparent,var(--gray-bg)); pointer-events:none; }
+.hero-bg { flex:1; }
+.hero-content { max-width:1080px; margin:0 auto; padding:44px 60px 80px; }
+.hero h1 { font-family:var(--ff-d); font-size:clamp(1.8rem,3.2vw,2.8rem); font-weight:600; line-height:1.18; letter-spacing:-0.02em; color:var(--ink); animation:fu 0.8s 0.1s var(--ease) both; }
+.hero h1 em { font-style:italic; color:var(--accent); }
+.hero h1 em { font-style:italic; color:var(--accent); }
+.hero-sub { margin-top:22px; font-size:1rem; font-weight:300; color:var(--ink-muted); line-height:1.75; animation:fu 0.8s 0.18s var(--ease) both; }
+.hero-pos { margin-top:18px; padding:13px 18px; border-left:2px solid var(--accent); font-family:var(--ff-d); font-size:0.97rem; font-weight:300; font-style:italic; color:var(--ink-muted); animation:fu 0.8s 0.26s var(--ease) both; }
+.hero-actions { margin-top:30px; display:flex; gap:10px; animation:fu 0.8s 0.34s var(--ease) both; }
+.btn-p { display:inline-flex; align-items:center; gap:7px; background:var(--accent); color:white; font-size:0.88rem; font-weight:500; padding:11px 22px; border-radius:4px; text-decoration:none; transition:background 0.2s,transform 0.2s; }
+.btn-p:hover { background:#1d4ed8; transform:translateY(-1px); }
+.btn-s { display:inline-flex; align-items:center; gap:7px; background:white; color:var(--ink); font-size:0.88rem; font-weight:400; padding:11px 22px; border-radius:4px; border:1px solid var(--border); text-decoration:none; transition:border-color 0.2s,transform 0.2s; }
+.btn-s:hover { border-color:var(--ink-muted); transform:translateY(-1px); }
+
+/* SECTIONS */
+section { padding: 72px 0; }
+.slabel { font-size:0.76rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; display:block; }
+.stitle { font-family:var(--ff-d); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:600; letter-spacing:-0.02em; line-height:1.2; color:var(--ink); margin-bottom:10px; }
+.sdesc { font-size:0.97rem; font-weight:300; color:var(--ink-muted); line-height:1.75; margin-bottom:32px; }
+
+/* ABOUT */
+#about { background:transparent; }
+.about-body p { font-size:1rem; font-weight:300; color:var(--ink-muted); line-height:1.82; margin-bottom:16px; }
+.about-body p:last-child { margin-bottom:0; }
+.about-tags { display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:24px; }
+.about-tag-lbl { font-size:0.76rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); margin-right:4px; }
+.about-tag { font-size:0.86rem; padding:4px 14px; border-radius:100px; border:1px solid var(--border); color:var(--ink-muted); background:rgba(255,255,255,0.65); }
+
+/* PRODUCTS */
+#products { background:transparent; }
+.worlds-desc-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
+.wd-left { grid-column: 1 / 2; }
+.wd-right { grid-column: 2 / 4; }
+.wd-label { font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px; display:block; }
+.wd-title { font-family:var(--ff-d); font-size:1.05rem; font-weight:400; color:var(--ink); margin-bottom:6px; }
+.wd-interact { font-size:0.88rem; font-weight:300; color:var(--ink-muted); line-height:1.65; font-style:italic; }
+.pcards-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.pcard { border-radius:14px; overflow:hidden; position:relative; height:420px; transition:transform 0.25s var(--ease),box-shadow 0.25s; display:block; text-decoration:none; }
+.pcard:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,0.18); }
+.pcard-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+.pcard::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.82) 100%); pointer-events:none; }
+.pcard-body { position:absolute; inset:0; z-index:2; padding:18% 20px 20px; display:flex; flex-direction:column; }
+.pcard-header { display:flex; align-items:center; gap:9px; margin-bottom:6px; }
+.pcard-logo { width:28px; height:28px; object-fit:contain; flex-shrink:0; }
+.pcard-name { font-family:var(--ff-d); font-size:1.25rem; font-weight:400; color:white; }
+.pcard-tagline { font-size:0.8rem; font-style:italic; color:rgba(200,220,255,0.95); margin-bottom:6px; }
+.pcard-copy { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.82); line-height:1.55; height:5.5em; overflow:hidden; margin-bottom:0; }
+.pcard-flbl { font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.48); margin-bottom:5px; margin-top:16px; }
+.pcard-tags { display:flex; flex-wrap:wrap; gap:5px; }
+.ptag { font-size:0.72rem; padding:3px 9px; border-radius:100px; border:1px solid rgba(255,255,255,0.26); color:rgba(255,255,255,0.84); background:rgba(255,255,255,0.11); backdrop-filter:blur(4px); }
+
+/* TEAM */
+#team { background:transparent; }
+.team-intro { font-size:0.97rem; font-weight:300; color:var(--ink-muted); line-height:1.78; margin-bottom:44px; white-space:nowrap; }
+.org { display:flex; flex-direction:column; align-items:center; }
+.node {
+  background:white; border:1px solid var(--border); border-radius:14px;
+  padding:26px 20px; display:flex; flex-direction:column; align-items:center; gap:9px;
+  box-shadow:0 2px 14px rgba(0,0,0,0.07); width:210px; flex-shrink:0;
+}
+.ceo-node { position:relative; }
+.ceo-node::after { content:''; position:absolute; bottom:-36px; left:50%; transform:translateX(-50%); width:2px; height:36px; background:var(--border); }
+.node:not(.ceo-node) { transition:transform 0.2s,box-shadow 0.2s; }
+.node:not(.ceo-node):hover { transform:translateY(-3px); box-shadow:0 7px 22px rgba(0,0,0,0.09); }
+.avatar { width:96px; height:96px; border-radius:50%; overflow:hidden; background:var(--gray-2); border:2px solid var(--border); flex-shrink:0; }
+.avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+.badge-ceo { font-size:0.68rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); background:var(--gray-2); padding:3px 10px; border-radius:100px; }
+.badge-ai { font-size:0.68rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); background:var(--gray-2); padding:3px 10px; border-radius:100px; }
+.node-name { font-family:var(--ff-d); font-size:1rem; font-weight:400; color:var(--ink); text-align:center; }
+.node-title-ceo { font-size:0.78rem; font-weight:500; color:var(--accent); text-align:center; line-height:1.4; }
+.node-title-ai { font-size:0.78rem; font-weight:500; color:var(--accent); text-align:center; line-height:1.4; }
+.node-desc { font-size:0.74rem; font-weight:300; color:var(--ink-muted); text-align:center; line-height:1.55; }
+.org-vline { width:2px; height:36px; background:var(--border); }
+/* hbar spans exactly 4×210 + 3×16 = 888px */
+.org-hbar-outer { width:888px; position:relative; height:2px; }
+.org-hbar { position:absolute; top:0; left:105px; right:105px; height:2px; background:var(--border); }
+.agents-row { display:flex; gap:16px; }
+.agent-col { display:flex; flex-direction:column; align-items:center; }
+.agent-vline { width:2px; height:36px; background:var(--border); }
+
+/* CONTACT */
+#contact { background:rgba(236,234,230,0.55); backdrop-filter:blur(6px); }
+.contact-box {
+  background:rgba(0,0,0,0.75); border-radius:12px; padding:40px 52px;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;
+}
+.contact-h { font-family:var(--ff-d); font-size:1.6rem; font-weight:300; color:white; margin-bottom:8px; }
+.contact-p { font-size:0.88rem; font-weight:300; color:rgba(255,255,255,0.48); max-width:300px; line-height:1.7; }
+.contact-emails { display:flex; flex-direction:column; gap:14px; }
+.clabel { font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.36); margin-bottom:2px; display:block; }
+.contact-emails a { font-family:var(--ff-d); font-size:1rem; color:#93C5FD; text-decoration:none; border-bottom:1px solid rgba(147,197,253,0.2); transition:border-color 0.2s; }
+.contact-emails a:hover { border-color:#93C5FD; }
+
+/* FOOTER */
+footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
+.footer-inner { max-width:1080px; margin:0 auto; padding:22px 60px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.flogo { display:flex; align-items:center; gap:9px; }
+.flogo img { height:24px; }
+.flogo span { font-family:var(--ff-d); font-size:0.88rem; font-weight:300; color:rgba(255,255,255,0.5); }
+.fcopy { font-size:0.76rem; color:rgba(255,255,255,0.2); }
+
+@keyframes fu { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
+.reveal.visible { opacity:1; transform:none; }
+
+@media (max-width:900px) {
+  .c, .hero-content, .nav-inner, .footer-inner { padding-left:24px; padding-right:24px; }
+  .nav-links li:not(:last-child) { display:none; }
+  .hero h1,.hero-sub,.hero-pos { max-width:100%; }
+  .worlds-desc-3,.pcards-row { grid-template-columns:1fr; }
+  .wd-left,.wd-right { grid-column:1; }
+  .agents-row { flex-wrap:wrap; justify-content:center; }
+  .org-hbar-outer { width:100%; }
+  .org-hbar { left:25%; right:25%; }
+  .contact-box { flex-direction:column; padding:32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <img src="ml_icon.png" alt="ModelsLive" class="nav-logo-img">
+      <span class="nav-logo-text">ModelsLive</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-scene">
+    <img src="hero_scene.png" alt="">
+  </div>
+  <div class="hero-bg">
+    <div class="hero-content">
+      <h1><strong>Grounded Multimodal Intelligence for <em>Real-World</em> Interaction</strong></h1>
+      <p class="hero-sub">ModelsLive builds grounded multimodal AI agents that understand people, context, and real-world signals across consultation, commerce, and personalized support.</p>
+      <div class="hero-pos">From frontier AI research to deployable real-world products.</div>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-p">Contact Us →</a>
+        <a href="#products" class="btn-s">View Products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="c">
+    <p class="slabel">About</p>
+    <h2 class="stitle">Where AI models meet the real world</h2>
+    <div class="about-body reveal">
+      <p>ModelsLive is built on a simple belief: AI models should operate in the real world, not just in benchmarks. We build grounded multimodal agents that connect language, visual signals, user context, and domain knowledge to create genuine value in everyday human situations.</p>
+      <p>Our work spans AI consultation, live commerce, and personalized support, three domains where the gap between what AI can do in a lab and what it actually delivers to people remains wide. We are closing that gap with deployable, research-backed products.</p>
+    </div>
+    <div class="about-tags reveal">
+      <span class="about-tag-lbl">Focus</span>
+      <span class="about-tag">Multimodal AI</span>
+      <span class="about-tag">LLM Agents</span>
+      <span class="about-tag">Grounded Reasoning</span>
+      <span class="about-tag">Personalized Interaction</span>
+      <span class="about-tag">Deployable AI Products</span>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="c">
+    <p class="slabel">Products</p>
+    <h2 class="stitle">How AI models engage with the world</h2>
+    <p class="sdesc reveal">Each product is grounded in a distinct real-world context, where AI models must read people, context, and domain knowledge to create genuine value.</p>
+    <div class="worlds-desc-3 reveal">
+      <div class="wd-left">
+        <span class="wd-label">Objective World</span>
+        <div class="wd-title">Reasoning and advisory</div>
+        <p class="wd-interact">AI models retrieve domain knowledge, verify evidence, and deliver grounded recommendations users can trust.</p>
+      </div>
+      <div class="wd-right">
+        <span class="wd-label">Subjective World</span>
+        <div class="wd-title">Social cognition and empathy</div>
+        <p class="wd-interact">AI models read emotional context, adapt to personality and communication style, and sustain relational understanding across extended interactions.</p>
+      </div>
+    </div>
+    <div class="pcards-row reveal">
+      <a class="pcard" href="https://yukyin.github.io/projects/proadvisor-en/" target="_blank">
+        <img src="pa_bg.png" class="pcard-bg" alt="">
+        <div class="pcard-body">
+          <div class="pcard-header"><img src="pa_icon.png" class="pcard-logo" alt=""><div class="pcard-name">ProAdvisor</div></div>
+          <div class="pcard-tagline">Asks smart, advises wisely</div>
+          <p class="pcard-copy">AI-powered consultation systems for medical aesthetics and domain-specific advisory dialogue.</p>
+          <div class="pcard-flbl">Focus</div>
+          <div class="pcard-tags"><span class="ptag">Consultation agents</span><span class="ptag">Clinical-style reasoning</span><span class="ptag">User context understanding</span><span class="ptag">Grounded recommendations</span></div>
+        </div>
+      </a>
+      <a class="pcard" href="https://yukyin.github.io/projects/verbalvalue-en/" target="_blank">
+        <img src="vv_bg.png" class="pcard-bg" alt="">
+        <div class="pcard-body">
+          <div class="pcard-header"><img src="vv_icon.png" class="pcard-logo" alt=""><div class="pcard-name">VerbalValue</div></div>
+          <div class="pcard-tagline">High-EQ AI sales host</div>
+          <p class="pcard-copy">AI live commerce agents that understand products, users, and persuasive real-time interaction.</p>
+          <div class="pcard-flbl">Focus</div>
+          <div class="pcard-tags"><span class="ptag">Live commerce hosting</span><span class="ptag">Product explanation</span><span class="ptag">User intent modeling</span><span class="ptag">Adaptive conversation</span></div>
+        </div>
+      </a>
+      <a class="pcard" href="https://yukyin.github.io/projects/ekova-en/" target="_blank">
+        <img src="ek_bg.png" class="pcard-bg" alt="">
+        <div class="pcard-body">
+          <div class="pcard-header"><img src="ekova_icon.png" class="pcard-logo" alt=""><div class="pcard-name">Ekova</div></div>
+          <div class="pcard-tagline">The friend who always gets you</div>
+          <p class="pcard-copy">Personality-aware support agents for more adaptive and human-centered user experiences.</p>
+          <div class="pcard-flbl">Focus</div>
+          <div class="pcard-tags"><span class="ptag">Personalized support</span><span class="ptag">Long-term user understanding</span><span class="ptag">Dialogue memory</span><span class="ptag">Interaction adaptation</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="c">
+    <p class="slabel">Team</p>
+    <h2 class="stitle">Human-in-the-Loop Execution</h2>
+    <p class="team-intro reveal">A human founder sets direction. Specialized AI agents own core functions end-to-end: algorithm, engineering, product, and design.</p>
+    <div class="org reveal">
+      <div class="node ceo-node">
+        <a href="https://yukyin.github.io/" target="_blank" style="display:block;">
+          <div class="avatar"><img src="yc.png" alt="Yolanda Chen" onerror="this.style.display='none'"></div>
+        </a>
+        <span class="badge-ceo">Human</span>
+        <div class="node-name">Yolanda Chen</div>
+        <div class="node-title-ceo">Founder & CEO</div>
+        <div class="node-desc">Company strategy, research direction, and marketing</div>
+      </div>
+      <div class="org-vline"></div>
+      <div class="org-hbar-outer"><div class="org-hbar"></div></div>
+      <div class="agents-row">
+        <div class="agent-col"><div class="agent-vline"></div>
+          <div class="node">
+            <div class="avatar"><img src="eg.png" alt="Ethan Gray" onerror="this.style.display='none'"></div>
+            <span class="badge-ai">AI Agent</span>
+            <div class="node-name">Ethan Gray</div>
+            <div class="node-title-ai">Chief Scientist</div>
+            <div class="node-desc">Model research, training pipelines, and algorithm design</div>
+          </div>
+        </div>
+        <div class="agent-col"><div class="agent-vline"></div>
+          <div class="node">
+            <div class="avatar"><img src="ls.png" alt="Leo Swift" onerror="this.style.display='none'"></div>
+            <span class="badge-ai">AI Agent</span>
+            <div class="node-name">Leo Swift</div>
+            <div class="node-title-ai">CTO</div>
+            <div class="node-desc">Frontend, backend, and infrastructure development</div>
+          </div>
+        </div>
+        <div class="agent-col"><div class="agent-vline"></div>
+          <div class="node">
+            <div class="avatar"><img src="ms.png" alt="Mira Sharp" onerror="this.style.display='none'"></div>
+            <span class="badge-ai">AI Agent</span>
+            <div class="node-name">Mira Sharp</div>
+            <div class="node-title-ai">Chief Product Officer</div>
+            <div class="node-desc">Product strategy, roadmap, and user requirement design</div>
+          </div>
+        </div>
+        <div class="agent-col"><div class="agent-vline"></div>
+          <div class="node">
+            <div class="avatar"><img src="sc.png" alt="Sophie Craft" onerror="this.style.display='none'"></div>
+            <span class="badge-ai">AI Agent</span>
+            <div class="node-name">Sophie Craft</div>
+            <div class="node-title-ai">Chief Design Officer</div>
+            <div class="node-desc">Visual identity, UI design, and brand assets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="c">
+    <p class="slabel">Contact</p>
+    <h2 class="stitle">Get in touch</h2>
+    <div class="contact-box reveal">
+      <div>
+        <div class="contact-h">Let's talk</div>
+        <p class="contact-p">For partnerships, product trials, or general questions, reach out using the addresses below.</p>
+      </div>
+      <div class="contact-emails">
+        <div><span class="clabel">General Inquiries</span><a href="mailto:contact@modelslive.org">contact@modelslive.org</a></div>
+        <div><span class="clabel">Product Support</span><a href="mailto:support@modelslive.org">support@modelslive.org</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="flogo">
+      <img src="ml_icon.png" alt="ModelsLive">
+      <span>ModelsLive Inc.</span>
+    </div>
+    <div class="fcopy">© 2026 ModelsLive Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+}, {passive:true});
+const obs = new IntersectionObserver(
+  es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+  { threshold:0.06, rootMargin:'0px 0px -30px 0px' }
+);
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = `${(i%4)*0.08}s`;
+  obs.observe(el);
+});
+window.addEventListener('scroll', () => {
+  let cur='';
+  document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop-70) cur=s.id; });
+  document.querySelectorAll('.nav-links a:not(.nav-cta)').forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--ink)' : ''; });
+}, {passive:true});
+</script>
+</body>
+</html>

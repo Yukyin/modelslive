@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ModelsLive | Grounded Multimodal Intelligence for Real-World Interaction</title>
+<meta name="description" content="ModelsLive builds grounded multimodal AI agents that understand people, context, and real-world signals across consultation, commerce, and personalized support.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://modelslive.org/">
+<meta property="og:title" content="ModelsLive | Grounded Multimodal Intelligence for Real-World Interaction">
+<meta property="og:description" content="ModelsLive builds grounded multimodal AI agents that understand people, context, and real-world signals across consultation, commerce, and personalized support.">
+<meta property="og:image" content="https://modelslive.org/hero_bg.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ModelsLive | Grounded Multimodal Intelligence for Real-World Interaction">
+<meta name="twitter:description" content="ModelsLive builds grounded multimodal AI agents that understand people, context, and real-world signals across consultation, commerce, and personalized support.">
+<meta name="twitter:image" content="https://modelslive.org/hero_bg.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -114,6 +126,10 @@ section { padding: 32px 0; }
 .pcard-flbl { font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.48); margin-bottom:5px; margin-top:16px; }
 .pcard-tags { display:flex; flex-wrap:wrap; gap:5px; }
 .ptag { font-size:0.72rem; padding:3px 9px; border-radius:100px; border:1px solid rgba(255,255,255,0.26); color:rgba(255,255,255,0.84); background:rgba(255,255,255,0.11); backdrop-filter:blur(4px); }
+.pcard-wrap { position:relative; }
+.pcard-live-link { position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#052e16; background:#86efac; border:1px solid #4ade80; padding:5px 11px; border-radius:100px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; }
+.pcard-live-link:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(74,222,128,0.4); }
+.pcard-live-link::before { content:''; width:6px; height:6px; border-radius:50%; background:#052e16; }
 
 /* TEAM */
 #team { background:transparent; }
@@ -273,16 +289,19 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
           <div class="pcard-tags"><span class="ptag">Live commerce hosting</span><span class="ptag">Product explanation</span><span class="ptag">User intent modeling</span><span class="ptag">Adaptive conversation</span></div>
         </div>
       </a>
-      <a class="pcard" href="https://yukyin.github.io/projects/ekova-en/" target="_blank">
-        <img src="ek_bg.png" class="pcard-bg" alt="">
-        <div class="pcard-body">
-          <div class="pcard-header"><img src="ekova_icon.png" class="pcard-logo" alt=""><div class="pcard-name">Ekova</div></div>
-          <div class="pcard-tagline">The friend who always gets you</div>
-          <p class="pcard-copy">Personality-aware support agents for more adaptive and human-centered user experiences.</p>
-          <div class="pcard-flbl">Focus</div>
-          <div class="pcard-tags"><span class="ptag">Personalized support</span><span class="ptag">Long-term user understanding</span><span class="ptag">Dialogue memory</span><span class="ptag">Interaction adaptation</span></div>
-        </div>
-      </a>
+      <div class="pcard-wrap">
+        <a class="pcard-live-link" href="https://ekova.modelslive.org/" target="_blank">Live</a>
+        <a class="pcard" href="https://yukyin.github.io/projects/ekova-en/" target="_blank">
+          <img src="ek_bg.png" class="pcard-bg" alt="">
+          <div class="pcard-body">
+            <div class="pcard-header"><img src="ekova_icon.png" class="pcard-logo" alt=""><div class="pcard-name">Ekova</div></div>
+            <div class="pcard-tagline">One question, five distinct perspectives</div>
+            <p class="pcard-copy">Personality-aware support agents for more adaptive and human-centered user experiences.</p>
+            <div class="pcard-flbl">Focus</div>
+            <div class="pcard-tags"><span class="ptag">Personalized support</span><span class="ptag">Long-term user understanding</span><span class="ptag">Dialogue memory</span><span class="ptag">Interaction adaptation</span></div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </section>

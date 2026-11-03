@@ -7,8 +7,8 @@
   --gray-2:    #ECEAE6;
   --border:    #E0DDD8;
   --accent:    #2563EB;
-  --ff-d: 'Fraunces', Georgia, 'Songti SC', 'Noto Serif SC', serif;
-  --ff-b: 'Outfit', system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --ff-d: 'Fraunces', Georgia, serif;
+  --ff-b: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 html { scroll-behavior: smooth; }
 body {
@@ -19,11 +19,7 @@ body {
 body::before { content:''; position:fixed; inset:0; z-index:-1; background:rgba(244,244,242,0.9); }
 ::selection { background:var(--accent); color:white; }
 
-/* 语言切换：默认英文，html[lang=zh-CN] 时显示中文 */
-html:not([lang="zh-CN"]) [data-lang="zh"] { display:none !important; }
-html[lang="zh-CN"] [data-lang="en"] { display:none !important; }
-
-/* NAV（和首页一致） */
+/* NAV */
 nav {
   position:sticky; top:0; z-index:100; height:60px;
   background:rgba(255,255,255,0.95); backdrop-filter:blur(16px);
@@ -38,12 +34,6 @@ nav {
 .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
 .nav-links a { font-size:0.78rem; font-weight:400; color:var(--ink-muted); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; transition:color 0.2s; }
 .nav-links a:hover, .nav-links a.on { color:var(--ink); }
-.lang-btn {
-  font-family:var(--ff-b); font-size:0.78rem; letter-spacing:0.04em; cursor:pointer;
-  background:white; color:var(--ink); border:1px solid var(--border);
-  padding:6px 14px; border-radius:100px; transition:border-color 0.2s;
-}
-.lang-btn:hover { border-color:var(--ink-muted); }
 
 /* PAGE */
 main { flex:1; width:100%; }
@@ -79,8 +69,6 @@ main { flex:1; width:100%; }
 .a-body strong { font-weight:500; color:var(--ink); }
 .a-body .lead { font-size:1.08rem; }
 .a-body .sign { font-family:var(--ff-d); font-style:italic; font-size:1.1rem; color:var(--ink); margin-top:36px; }
-html[lang="zh-CN"] .a-body p { font-size:1.04rem; line-height:2; }
-html[lang="zh-CN"] .a-body .sign { font-style:normal; }
 
 .fig { margin:28px 0 32px; }
 .fig img { display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--border); }
@@ -91,7 +79,7 @@ html[lang="zh-CN"] .a-body .sign { font-style:normal; }
 .a-about b { font-weight:500; color:var(--ink); }
 .a-about a { color:var(--accent); text-decoration:none; }
 
-/* FOOTER（和首页一致） */
+/* FOOTER */
 footer { background:var(--ink); }
 .footer-inner { max-width:1080px; margin:0 auto; padding:22px 60px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
 .flogo { display:flex; align-items:center; gap:9px; }

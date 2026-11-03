@@ -38,17 +38,17 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top:76px; } .pframe { scroll-margin-top:96px; }
 body {
   font-family: var(--ff-b); color: var(--ink); line-height: 1.6; overflow-x: hidden;
-  background: var(--gray-bg) url('hero_bg.png') center top / cover fixed;
+  background: #FAFAFC;
 }
-body::before { content:''; position:fixed; inset:0; z-index:-1; background:rgba(244,244,242,0.83); }
 ::selection { background:var(--accent); color:white; }
 
 /* ── CENTERED CONTAINER ── */
 /* Every section's content goes inside .c which is always centered */
 .c {
-  max-width: 1080px;
+  max-width: 1205px;
   margin: 0 auto;
   padding: 0 60px;
 }
@@ -59,7 +59,7 @@ nav {
   background:rgba(255,255,255,0.95); backdrop-filter:blur(16px);
 }
 .nav-inner {
-  max-width: 1080px; margin: 0 auto; padding: 0 60px;
+  max-width: 1205px; margin: 0 auto; padding: 0 60px;
   height: 60px; display:flex; align-items:center; justify-content:space-between;
 }
 .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
@@ -68,20 +68,38 @@ nav {
 .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
 .nav-links a { font-size:0.78rem; font-weight:400; color:var(--ink-muted); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; transition:color 0.2s; }
 .nav-links a:hover { color:var(--ink); }
+.nav-toggle { display:none; width:44px; height:44px; margin-right:-10px; border:0; background:none; color:var(--ink); cursor:pointer; align-items:center; justify-content:center; }
+.nav-toggle svg { width:26px; height:26px; stroke:currentColor; stroke-width:2; fill:none; }
 .nav-cta { background:var(--accent)!important; color:white!important; padding:8px 18px; border-radius:4px; }
 
 /* HERO */
-.hero { min-height:auto; display:flex; flex-direction:column; margin-top:-60px; }
-.hero-scene { flex:0 0 auto; height:calc(48vh + 60px); min-height:340px; position:relative; overflow:hidden; }
-.hero-scene img { width:100%; height:100%; object-fit:cover; object-position:center 30%; display:block; }
-.hero-scene::after { content:''; position:absolute; bottom:0; left:0; right:0; height:200px; background:linear-gradient(to bottom,transparent,var(--gray-bg)); pointer-events:none; }
-.hero-bg { flex:1; }
-.hero-content { max-width:1080px; margin:0 auto; padding:36px 60px 40px; }
-.hero h1 { font-family:var(--ff-d); font-size:clamp(1.8rem,3.2vw,2.8rem); font-weight:600; line-height:1.18; letter-spacing:-0.02em; color:var(--ink); animation:fu 0.8s 0.1s var(--ease) both; }
-.hero h1 em { font-style:italic; color:var(--accent); }
-.hero h1 em { font-style:italic; color:var(--accent); }
-.hero-sub { margin-top:22px; font-size:1rem; font-weight:300; color:var(--ink-muted); line-height:1.75; animation:fu 0.8s 0.18s var(--ease) both; }
-.hero-pos { margin-top:18px; padding:13px 18px; border-left:2px solid var(--accent); font-family:var(--ff-d); font-size:0.97rem; font-weight:300; font-style:italic; color:var(--ink-muted); animation:fu 0.8s 0.26s var(--ease) both; }
+/* VIDEO BOX + SOUND BUTTON */
+.vbox { position:relative; overflow:hidden; background:#14141c; }
+.vbox { container-type:inline-size; }
+.vbox video { display:block; width:100%; height:100%; object-fit:cover; cursor:pointer; }
+.cap { position:absolute; left:50%; bottom:20%; transform:translateX(-50%); z-index:2; width:92%; text-align:center; color:white; font-size:14px; font-size:clamp(13px,2.3cqw,26px); font-weight:500; line-height:1.3; text-shadow:0 1px 4px rgba(0,0,0,0.75); pointer-events:none; text-wrap:balance; }
+.hero-film .cap { bottom:11%; }
+.snd { position:absolute; right:12px; bottom:12px; z-index:3; width:44px; height:44px; border:0; border-radius:50%; background:rgba(0,0,0,0.72); color:white; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; transition:background 0.2s; }
+.snd:hover { background:black; }
+.snd svg { width:22px; height:22px; fill:currentColor; }
+.snd .on { display:none; }
+.vbox.sound .snd { background:var(--accent); }
+.vbox.sound .snd .on { display:block; }
+.vbox.sound .snd .off { display:none; }
+
+.hero { position:relative; margin-top:0; padding:60px 0 0; display:block; }
+.hero-film { height:min(42.5vw, 82vh); min-height:480px; }
+.hero-film::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.18) 100%); pointer-events:none; }
+.hero-content { position:absolute; left:0; right:0; top:60px; height:min(42.5vw, 82vh); min-height:480px; pointer-events:none; transition:opacity 0.4s; }
+.hero.ending .hero-content { opacity:0; }
+.hero-text { max-width:1205px; height:100%; margin:0 auto; padding:0 60px 70px; display:flex; flex-direction:column; justify-content:center; }
+.hero-text > * { max-width:760px; }
+.hero-text a { pointer-events:auto; }
+.hero-actions .btn-s + .btn-s { background:transparent; color:white; border-color:rgba(255,255,255,0.85); }
+.hero h1 { font-family:var(--ff-d); font-size:clamp(1.8rem,3.2vw,2.8rem); font-weight:600; line-height:1.18; letter-spacing:-0.02em; color:white; animation:fu 0.8s 0.1s var(--ease) both; }
+.hero h1 em { font-style:italic; color:#93C5FD; }
+.hero-sub { margin-top:22px; font-size:1rem; font-weight:300; color:rgba(255,255,255,0.9); line-height:1.75; animation:fu 0.8s 0.18s var(--ease) both; }
+.hero-pos { margin-top:18px; padding:13px 18px; border-left:2px solid #93C5FD; font-family:var(--ff-d); font-size:0.97rem; font-weight:300; font-style:italic; color:rgba(255,255,255,0.9); animation:fu 0.8s 0.26s var(--ease) both; }
 .hero-actions { margin-top:30px; display:flex; gap:10px; animation:fu 0.8s 0.34s var(--ease) both; }
 .btn-p { display:inline-flex; align-items:center; gap:7px; background:var(--accent); color:white; font-size:0.88rem; font-weight:500; padding:11px 22px; border-radius:4px; text-decoration:none; transition:background 0.2s,transform 0.2s; }
 .btn-p:hover { background:#1d4ed8; transform:translateY(-1px); }
@@ -115,33 +133,36 @@ section { padding: 32px 0; }
 .wd-label { font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px; display:block; }
 .wd-title { font-family:var(--ff-d); font-size:1.05rem; font-weight:400; color:var(--ink); margin-bottom:6px; }
 .wd-interact { font-size:0.88rem; font-weight:300; color:var(--ink-muted); line-height:1.65; font-style:italic; }
-.pcards-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
-.pcard { border-radius:14px; overflow:hidden; position:relative; height:420px; transition:transform 0.25s var(--ease),box-shadow 0.25s; display:block; text-decoration:none; }
-.pcard:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,0.18); }
-.pcard-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
-.pcard::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.82) 100%); pointer-events:none; }
-.pcard-body { position:absolute; inset:0; z-index:2; padding:18% 20px 20px; display:flex; flex-direction:column; }
-.pcard-header { display:flex; align-items:center; gap:9px; margin-bottom:6px; }
-.pcard-logo { width:28px; height:28px; object-fit:contain; flex-shrink:0; }
-.pcard-name { font-family:var(--ff-d); font-size:1.25rem; font-weight:400; color:white; }
-.pcard-tagline { font-size:0.8rem; font-style:italic; color:rgba(200,220,255,0.95); margin-bottom:6px; }
-.pcard-copy { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.82); line-height:1.55; height:7.75em; overflow:hidden; margin-bottom:0; }
-.pcard-flbl { font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.48); margin-bottom:5px; margin-top:16px; }
-.pcard-tags { display:flex; flex-wrap:wrap; gap:5px; }
-.ptag { font-size:0.72rem; padding:3px 9px; border-radius:100px; border:1px solid rgba(255,255,255,0.26); color:rgba(255,255,255,0.84); background:rgba(255,255,255,0.11); backdrop-filter:blur(4px); }
-.pcard-wrap { position:relative; }
-.pcard-live-link { position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#052e16; background:#86efac; border:1px solid #4ade80; padding:5px 11px; border-radius:100px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; }
-.pcard-live-link:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(74,222,128,0.4); }
-.pcard-live-link::before { content:''; width:6px; height:6px; border-radius:50%; background:#052e16; }
+.pframes { display:flex; flex-direction:column; gap:36px; }
+.pframe { display:grid; grid-template-columns:62% 1fr; gap:32px; padding:32px; background:white; border:1px solid var(--border); border-radius:26px; align-items:stretch; }
+.pfilm { aspect-ratio:16/9; border-radius:16px; align-self:center; width:100%; }
+.pside { display:flex; flex-direction:column; min-width:0; }
+.pbrand { display:flex; align-items:center; gap:14px; text-decoration:none; min-width:0; }
+.plogo { width:56px; height:56px; object-fit:contain; flex-shrink:0; }
+.pname { font-family:var(--ff-d); font-size:1.9rem; font-weight:400; line-height:1.15; color:var(--ink); }
+.ptagline { font-size:0.92rem; font-style:italic; color:var(--ink-muted); margin-top:2px; }
+.pcopy { font-size:0.95rem; font-weight:300; color:var(--ink-muted); line-height:1.55; margin-top:12px; }
+.ptags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 16px; }
+.ptag { font-size:0.74rem; padding:3px 11px; border-radius:100px; border:1px solid var(--border); color:var(--ink-muted); background:white; }
+.ptry { margin-top:auto; display:flex; flex-direction:column; gap:8px; }
+.btn-try { display:block; text-align:center; background:var(--accent); color:white; font-family:inherit; font-size:1rem; font-weight:600; line-height:1; padding:14px 18px; border-radius:100px; text-decoration:none; transition:background 0.2s; }
+.btn-try:hover { background:#1d4ed8; }
+.btn-intro { display:block; width:100%; text-align:center; background:white; color:var(--ink); font-family:inherit; font-size:0.95rem; font-weight:500; line-height:1; padding:12px 18px; border:1.5px solid #16161E; border-radius:100px; cursor:pointer; transition:background 0.2s; }
+.btn-intro:hover { background:var(--gray-bg); }
 
 /* FOUNDER */
 #founder { background:transparent; }
-.founder { display:grid; grid-template-columns:160px 1fr; gap:36px; align-items:center; }
-.founder-photo { width:160px; height:160px; border-radius:50%; overflow:hidden; border:2px solid var(--border); background:var(--gray-2); }
-.founder-photo img { width:100%; height:100%; object-fit:cover; display:block; }
-.founder-role { font-size:0.82rem; font-weight:500; color:var(--accent); margin:0 0 10px; letter-spacing:0.04em; }
-.founder-body p { font-size:1rem; font-weight:300; color:var(--ink-muted); line-height:1.82; margin-bottom:14px; }
-.founder-link { display:inline-block; margin-top:18px; font-size:0.88rem; color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(37,99,235,0.25); }
+.founder { display:grid; grid-template-columns:264px 1fr; gap:48px; align-items:stretch; }
+.founder-video { align-self:center; width:264px; aspect-ratio:4/5; overflow:visible; background:none; container-type:normal; cursor:pointer; }
+.oval { position:absolute; inset:0; border-radius:50%; overflow:hidden; background:#14141c; box-shadow:0 3px 12px rgba(40,36,70,0.16), 0 1px 2px rgba(40,36,70,0.10); }
+.oval video { position:absolute; left:50%; top:0; width:100%; height:auto; max-width:none; transform:translate(-50%,-21.5%); }
+.founder-video .snd { right:10px; bottom:18px; }
+.founder-body { display:flex; flex-direction:column; height:100%; }
+.founder-name { font-size:2.3rem; margin-bottom:4px; }
+.founder-role { font-size:1rem; font-weight:500; color:var(--accent); margin:0 0 14px; letter-spacing:0.04em; }
+.founder-body p { font-size:1.15rem; font-weight:300; color:var(--ink-muted); line-height:25.8px; margin-bottom:0; }
+.founder-full { align-self:flex-start; width:auto; padding:12px 22px; }
+.founder-link { display:inline-block; font-size:0.95rem; color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(37,99,235,0.25); }
 .founder-link:hover { border-color:var(--accent); }
 
 /* CONTACT */
@@ -159,36 +180,158 @@ section { padding: 32px 0; }
 
 /* FOOTER */
 footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
-.footer-inner { max-width:1080px; margin:0 auto; padding:22px 60px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.footer-inner { max-width:1205px; margin:0 auto; padding:22px 60px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
 .flogo { display:flex; align-items:center; gap:9px; }
 .flogo img { height:24px; }
 .flogo span { font-family:var(--ff-d); font-size:0.88rem; font-weight:300; color:rgba(255,255,255,0.5); }
 .fcopy { font-size:0.76rem; color:rgba(255,255,255,0.2); }
+
+.pframes.nobar .pfilm { aspect-ratio:1920/790; }
+.pframes.nobar .pfilm .cap { bottom:11%; }
+@media (max-width:1180px) { .pframes.nobar .pfilm .cap { bottom:56px; } }
+/* film and buttons stacked on the left, text fills the same height on the right */
+.pleft { display:flex; flex-direction:column; gap:12px; min-width:0; }
+.pleft .pfilm { margin:0; align-self:stretch; }
+.ptry { margin-top:0; flex-direction:row; flex-wrap:wrap; align-items:center; gap:8px; }
+.btn-try { flex:0 0 auto; padding:13px 28px; }
+.btn-intro { flex:0 0 auto; width:auto; padding:12px 22px; }
+.pside .ptags { margin:auto 0 0; }
+@media (min-width:1181px) {
+  .pframe { grid-template-columns:62% 1fr; gap:28px; padding:24px; }
+  .pname { font-size:1.9rem; }
+  .ptagline { font-size:0.95rem; }
+  .pcopy { font-size:1.02rem; line-height:1.6; margin-top:14px; margin-bottom:12px; }
+  .ptag { font-size:0.78rem; }
+}
+@media (max-width:1180px) {
+  .pframe { gap:14px; }
+  .pleft .btn-try { flex:0 0 96px; padding:14px 8px; font-size:0.98rem; white-space:nowrap; }
+  .pleft .btn-intro { flex:1 1 0; padding:13px 6px; font-size:0.92rem; white-space:nowrap; }
+  .pside .ptags { margin:12px 0 0; }
+}
+@media (max-width:370px) { .pleft .btn-try, .pleft .btn-intro { flex:0 0 100%; } }
+/* placement of the buttons per version */
+.ptry:empty { display:none; }
+.pframes.v-nr .ptags { display:none; }
+.pframes.v-nr .ptry-r { margin-top:auto; }
+@media (max-width:1180px) {
+  .pframes.v-nr .ptry-r { margin-top:14px; }
+  .pframes.v-nr .ptry-r .btn-intro { flex:0 0 auto; padding:14px 10px; }
+}
+@media (min-width:1181px) {
+  .pframes.v-nr .pfilm { align-self:start; }
+  .pframes.v-nr .pleft { gap:0; }
+  .pframes.v-nr .plogo { width:50px; height:50px; }
+  .pframes.v-nr .pname { font-size:1.7rem; }
+  .pframes.v-nr .ptagline { font-size:0.86rem; }
+  .pframes.v-nr .pcopy { font-size:0.95rem; line-height:1.5; margin:10px 0 0; }
+  .pframes.v-nr .pside { padding:10px 0; }
+  .pframes.v-nr .ptry-r { gap:6px; }
+  .pframes.v-nr .btn-try { padding:11px 16px; font-size:0.95rem; }
+  .pframes.v-nr .btn-intro { padding:10px 16px; font-size:0.9rem; }
+}
+.ptry-r { margin-top:auto; flex-direction:column; align-items:stretch; }
+.ptry-r .btn-try, .ptry-r .btn-intro { flex:0 0 auto; width:100%; }
+@media (max-width:1180px) {
+  .pframes .pside .ptags { margin:12px 0 14px; }
+  .ptry-r .btn-try { padding:15px 20px; flex:0 0 auto; }
+}
+@media (min-width:901px) {
+  .founder.f200 { grid-template-columns:200px 1fr; } .founder.f200 .founder-video { width:200px; }
+  .founder.f200 .founder-name { font-size:2rem; margin-bottom:2px; }
+  .founder.f200 .founder-role { margin-bottom:10px; }
+  .founder.f200 .founder-body p { font-size:1.02rem; }
+  .founder.f200 .founder-video .snd { right:6px; bottom:12px; width:38px; height:38px; }
+  .founder.f200 .founder-video .snd svg { width:19px; height:19px; }
+}
+.founder.e-none .oval { border:0; box-shadow:none; }
+.founder-actions { margin-top:18px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+/* FULL VIDEO PLAYER */
+.player { position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); }
+.player.open { display:flex; }
+.player video { display:block; height:92vh; height:92dvh; max-width:100vw; aspect-ratio:9/16; background:black; }
+.player-close { position:absolute; top:14px; right:14px; width:44px; height:44px; border:0; border-radius:50%; background:rgba(255,255,255,0.18); color:white; font-size:24px; line-height:1; cursor:pointer; }
 
 @keyframes fu { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
 .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
 .reveal.visible { opacity:1; transform:none; }
 
 @media (max-width:900px) {
-  .c, .hero-content, .nav-inner, .footer-inner { padding-left:24px; padding-right:24px; }
-  .nav-links li:not(:last-child) { display:none; }
-  .hero h1,.hero-sub,.hero-pos { max-width:100%; }
-  .worlds-desc-3,.pcards-row { grid-template-columns:1fr; }
+  .c, .nav-inner, .footer-inner, .hero-text { padding-left:20px; padding-right:20px; }
+  .nav-toggle { display:flex; }
+  .nav-links { display:none; position:absolute; top:60px; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; padding:8px 20px 16px; background:white; box-shadow:0 12px 24px rgba(0,0,0,0.1); }
+  .nav-links.open { display:flex; }
+  .nav-links a { display:block; padding:13px 0; font-size:1rem; letter-spacing:0.04em; }
+  .nav-links .nav-cta { margin-top:8px; padding:13px 16px; text-align:center; }
+
+  /* the film runs at full width with its own proportions, the text sits under it */
+  .hero-film { height:auto; min-height:0; aspect-ratio:1600/680; }
+  .hero-film::after { display:none; }
+  .hero-content { position:static; height:auto; min-height:0; pointer-events:auto; }
+  .hero.ending .hero-content { opacity:1; }
+  .hero-text { padding-top:28px; padding-bottom:12px; display:block; }
+  .hero-text > * { max-width:none; }
+  .hero h1 { color:var(--ink); font-size:2rem; }
+  .hero h1 em { color:var(--accent); }
+  .hero-sub { color:var(--ink-muted); font-size:1.06rem; }
+  .hero-pos { color:var(--ink-muted); border-left-color:var(--accent); font-size:1.06rem; }
+  .hero-actions { flex-wrap:wrap; }
+  .hero-actions .btn-s { flex:1 1 140px; justify-content:center; font-size:1rem; padding:13px 18px; background:white!important; color:var(--ink)!important; border-color:var(--border)!important; }
+
+  section { padding:32px 0; }
+  .slabel { font-size:0.85rem; }
+  .stitle { font-size:1.75rem; }
+  .sdesc, .about-body p, .founder-body p, .wd-interact { font-size:1.06rem; }
+  .about-tag { font-size:0.95rem; }
+  .worlds-desc-3 { grid-template-columns:1fr; }
   .wd-left,.wd-right { grid-column:1; }
-  .contact-box { flex-direction:column; padding:32px 24px; }
-  .founder { grid-template-columns:1fr; gap:20px; }
-  .founder-photo { width:140px; height:140px; }
+  .contact-box { flex-direction:column; align-items:flex-start; padding:32px 24px; }
+  .contact-p { font-size:1rem; max-width:none; }
+  .contact-emails a { font-size:1.06rem; word-break:break-all; }
+  .founder { grid-template-columns:1fr; gap:24px; }
+  .founder-video { width:240px; margin:0 auto; }
+  .founder-body p { font-size:1.06rem; }
+  .founder-full { font-size:1.02rem; }
+  .founder-name { font-size:1.9rem; }
+  .footer-inner { flex-wrap:wrap; }
 }
+@media (max-width:1180px) {
+  .pframes { gap:24px; }
+  .pfilm .cap, .hero-film .cap { bottom:60px; }
+  .pframe { display:flex; flex-direction:column; gap:16px; padding:16px; border-radius:20px; }
+  .pfilm { order:-1; }
+  .plogo { width:52px; height:52px; }
+  .pname { font-size:1.6rem; }
+  .ptagline { font-size:1rem; }
+  .pcopy { font-size:1.06rem; }
+  .ptags { margin:12px 0 16px; }
+  .ptag { font-size:0.9rem; }
+  .btn-try { font-size:1.06rem; padding:15px 20px; }
+  .btn-intro { font-size:1.02rem; padding:14px 20px; }
+}
+@media (max-width:600px) {
+  /* phone: film runs edge to edge in the card, full height, a little cropped at the sides */
+  .pframes.nobar .pframe { padding:0 0 18px; overflow:hidden; }
+  .pframes.nobar .pfilm { aspect-ratio:16/9; width:100%; border-radius:0; margin:0; }
+  .pframes.nobar .pfilm video { position:absolute; left:50%; top:50%; width:auto; height:136.6%; max-width:none; transform:translate(-50%,-50%); object-fit:fill; }
+  .pframes.nobar .pside { padding-left:16px; padding-right:16px; }
+  /* same subtitle height as desktop; narrower so it clears the sound button */
+  .pframes.nobar .pfilm .cap, .hero-film .cap { bottom:11%; width:66%; }
+}
+#member { background:white; border-top:1px solid var(--border); padding:28px 24px; }
+.member-inner { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; }
+.member-lbl { font-size:0.76rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-muted); }
+.member-inner img { height:60px; width:auto; display:block; }
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-inner">
     <a href="#top" class="nav-brand">
       <img src="ml_icon.png" alt="ModelsLive" class="nav-logo-img">
       <span class="nav-logo-text">ModelsLive</span>
     </a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#products">Products</a></li>
@@ -200,11 +343,9 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
 </nav>
 
 <section class="hero" id="top">
-  <div class="hero-scene">
-    <img src="hero_scene.png" alt="">
-  </div>
-  <div class="hero-bg">
-    <div class="hero-content">
+  <div class="vbox hero-film"><video data-name="company_film" muted loop playsinline webkit-playsinline x5-playsinline preload="none" aria-label="ModelsLive company film"></video><button class="snd" type="button" aria-label="Turn sound on or off"><svg class="off" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.2-2.2-1.1-1.1-2.2 2.2-2.2-2.2-1.1 1.1 2.2 2.2-2.2 2.2 1.1 1.1 2.2-2.2 2.2 2.2 1.1-1.1-2.2-2.2z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM12 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button></div>
+  <div class="hero-content">
+    <div class="hero-text">
       <h1><strong>Grounded Multimodal Intelligence for <em>Real-World</em> Interaction</strong></h1>
       <p class="hero-sub">ModelsLive builds grounded multimodal AI agents that understand people, context, and real-world signals across consultation, commerce, and personality support.</p>
       <div class="hero-pos">From frontier AI research to deployable real-world products.</div>
@@ -252,46 +393,49 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
         <p class="wd-interact">AI models read emotional context, adapt to personality and communication style, and sustain relational understanding across extended interactions.</p>
       </div>
     </div>
-    <div class="pcards-row reveal">
-      <div class="pcard-wrap">
-        <a class="pcard-live-link" href="https://thurunel.modelslive.org/" target="_blank">Live</a>
-        <a class="pcard" href="blog/thurunel-launch/index.html">
-          <img src="pa_bg.png" class="pcard-bg" alt="">
-          <div class="pcard-body">
-            <div class="pcard-header"><img src="pa_icon.png" class="pcard-logo" alt=""><div class="pcard-name">ThuRunel</div></div>
-            <div class="pcard-tagline">Carrying complex social behavior</div>
-            <p class="pcard-copy">Professional decisions stay with experts, while social intelligence is carried by a digital counterpart. An AI Copilot for high-stakes decisions, starting with medical aesthetics.</p>
-            <div class="pcard-flbl">Focus</div>
-            <div class="pcard-tags"><span class="ptag">Social intelligence</span><span class="ptag">High-stakes decisions</span><span class="ptag">Swappable domain knowledge</span><span class="ptag">Medical aesthetics first</span></div>
+    <div class="pframes nobar v-nr">
+      <article class="pframe reveal" id="thurunel">
+        <div class="pleft">
+          <div class="vbox pfilm"><video data-name="thurunel_film" muted loop playsinline webkit-playsinline x5-playsinline preload="none" aria-label="ThuRunel concept film"></video><button class="snd" type="button" aria-label="Turn sound on or off"><svg class="off" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.2-2.2-1.1-1.1-2.2 2.2-2.2-2.2-1.1 1.1 2.2 2.2-2.2 2.2 1.1 1.1 2.2-2.2 2.2 2.2 1.1-1.1-2.2-2.2z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM12 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button></div>
+        </div>
+        <div class="pside">
+          <a class="pbrand" href="blog/thurunel-launch/index.html"><img src="pa_icon.png" class="plogo" alt=""><div><div class="pname">ThuRunel</div><div class="ptagline">Carrying complex social behavior</div></div></a>
+          <p class="pcopy">Decisions stay with experts; a digital counterpart carries social intelligence. An AI Copilot for high-stakes decisions, starting with medical aesthetics.</p>
+          <div class="ptry ptry-r">
+            <button class="btn-intro" type="button" data-intro="thurunel_talk">&#9654;&nbsp; Watch the intro</button>
+            <a class="btn-try" href="https://thurunel.modelslive.org/" target="_blank" rel="noopener">Try it &rarr;</a>
           </div>
-        </a>
-      </div>
-      <div class="pcard-wrap">
-        <a class="pcard-live-link" href="https://www.twitch.tv/modelslive" target="_blank">Live</a>
-        <a class="pcard" href="blog/modelslive/index.html#ottilie">
-          <img src="vv_bg.png" class="pcard-bg" alt="">
-          <div class="pcard-body">
-            <div class="pcard-header"><img src="vv_icon.png" class="pcard-logo" alt=""><div class="pcard-name">Ottilie</div></div>
-            <div class="pcard-tagline">Conveying social and spiritual meaning</div>
-            <p class="pcard-copy">An AI host who draws out the meaning behind a product and lets people pay for that meaning, testing whether a great host's charisma can be standardized.</p>
-            <div class="pcard-flbl">Focus</div>
-            <div class="pcard-tags"><span class="ptag">Meaning matching</span><span class="ptag">Autonomous livestreaming</span><span class="ptag">Real-time interaction</span></div>
+
+        </div>
+      </article>
+      <article class="pframe reveal" id="ottilie">
+        <div class="pleft">
+          <div class="vbox pfilm"><video data-name="ottilie_film" muted loop playsinline webkit-playsinline x5-playsinline preload="none" aria-label="Ottilie concept film"></video><button class="snd" type="button" aria-label="Turn sound on or off"><svg class="off" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.2-2.2-1.1-1.1-2.2 2.2-2.2-2.2-1.1 1.1 2.2 2.2-2.2 2.2 1.1 1.1 2.2-2.2 2.2 2.2 1.1-1.1-2.2-2.2z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM12 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button></div>
+        </div>
+        <div class="pside">
+          <a class="pbrand" href="blog/ottilie-launch/index.html"><img src="vv_icon.png" class="plogo" alt=""><div><div class="pname">Ottilie</div><div class="ptagline">Conveying social and spiritual meaning</div></div></a>
+          <p class="pcopy">An AI host who draws out the meaning behind a product and lets people pay for that meaning, testing whether a great host's charisma can be standardized.</p>
+          <div class="ptry ptry-r">
+            <button class="btn-intro" type="button" data-intro="ottilie_talk">&#9654;&nbsp; Watch the intro</button>
+            <a class="btn-try" href="https://www.twitch.tv/modelslive" target="_blank" rel="noopener">Try it &rarr;</a>
           </div>
-        </a>
-      </div>
-      <div class="pcard-wrap">
-        <a class="pcard-live-link" href="https://ekova.modelslive.org/" target="_blank">Live</a>
-        <a class="pcard" href="blog/modelslive/index.html#ekova">
-          <img src="ek_bg.png" class="pcard-bg" alt="">
-          <div class="pcard-body">
-            <div class="pcard-header"><img src="ekova_icon.png" class="pcard-logo" alt=""><div class="pcard-name">Ekova</div></div>
-            <div class="pcard-tagline">Reshaping individual perception and values</div>
-            <p class="pcard-copy">Abstracts human behavioral and emotional patterns so AI can work at a social level, and helps people see their own situation anew through five distinct personalities.</p>
-            <div class="pcard-flbl">Focus</div>
-            <div class="pcard-tags"><span class="ptag">Personality modeling</span><span class="ptag">Emotional patterns</span><span class="ptag">Multiple perspectives</span></div>
+
+        </div>
+      </article>
+      <article class="pframe reveal" id="ekova">
+        <div class="pleft">
+          <div class="vbox pfilm"><video data-name="ekova_film" muted loop playsinline webkit-playsinline x5-playsinline preload="none" aria-label="Ekova concept film"></video><button class="snd" type="button" aria-label="Turn sound on or off"><svg class="off" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.2-2.2-1.1-1.1-2.2 2.2-2.2-2.2-1.1 1.1 2.2 2.2-2.2 2.2 1.1 1.1 2.2-2.2 2.2 2.2 1.1-1.1-2.2-2.2z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM12 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button></div>
+        </div>
+        <div class="pside">
+          <a class="pbrand" href="blog/ekova-launch/index.html"><img src="ekova_icon.png" class="plogo" alt=""><div><div class="pname">Ekova</div><div class="ptagline">Reshaping individual perception and values</div></div></a>
+          <p class="pcopy">Abstracts human behavioral and emotional patterns so AI can work at a social level, and helps people see their situation anew through five personalities.</p>
+          <div class="ptry ptry-r">
+            <button class="btn-intro" type="button" data-intro="ekova_talk">&#9654;&nbsp; Watch the intro</button>
+            <a class="btn-try" href="https://ekova.modelslive.org/" target="_blank" rel="noopener">Try it &rarr;</a>
           </div>
-        </a>
-      </div>
+
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -299,13 +443,13 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
 <section id="founder">
   <div class="c">
     <p class="slabel">Founder</p>
-    <h2 class="stitle">Yuyan (Yolanda) Chen</h2>
-    <div class="founder reveal">
-      <a class="founder-photo" href="https://yukyin.github.io/" target="_blank"><img src="yc.jpg" alt="Yuyan (Yolanda) Chen"></a>
+    <div class="founder f200 e-none reveal">
+      <div class="vbox founder-video"><div class="oval"><video data-name="company_talk_clean" muted loop playsinline webkit-playsinline x5-playsinline preload="none" aria-label="Company talk by the founder"></video></div><button class="snd" type="button" aria-label="Turn sound on or off"><svg class="off" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.2-2.2-1.1-1.1-2.2 2.2-2.2-2.2-1.1 1.1 2.2 2.2-2.2 2.2 1.1 1.1 2.2-2.2 2.2 2.2 1.1-1.1-2.2-2.2z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM12 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button></div>
       <div class="founder-body">
+        <h2 class="stitle founder-name">Yuyan (Yolanda) Chen</h2>
         <div class="founder-role">Founder &amp; CEO</div>
-        <p>Yuyan holds a PhD in Computer Science from Fudan University and was a postdoctoral fellow at Cornell, working on large language models. She has published 35 papers at top AI venues, 24 as first author, and is the first inventor on 39 granted patents; her research has been cited by Tsinghua, Peking University, Stanford, Harvard and Princeton, and referenced in research at Baidu and Alibaba. She founded ModelsLive to take that work out of papers and into products anyone can use.</p>
-        <a class="founder-link" href="https://yukyin.github.io/" target="_blank">Personal homepage →</a>
+        <p>Yuyan holds a PhD in Computer Science from Fudan University and was a postdoctoral fellow at Cornell, working on large language models. She has published 35 papers at top AI venues, 24 as first author, and is the first inventor on 39 granted patents; her research has been cited by more than 400 institutions, including Stanford, Harvard and Princeton. She founded ModelsLive to take that work out of papers and into products anyone can use.</p>
+        <div class="founder-actions"><button class="btn-intro founder-full" type="button" data-intro="company_talk">&#9654;&nbsp; Watch the full intro</button><a class="founder-link" href="https://yukyin.github.io/" target="_blank">Personal homepage →</a></div>
       </div>
     </div>
   </div>
@@ -328,6 +472,13 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
   </div>
 </section>
 
+<section id="member" aria-label="Program membership">
+  <div class="member-inner">
+    <span class="member-lbl">Member of</span>
+    <img src="nvidia-inception-badge.svg" alt="NVIDIA Inception Program">
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="flogo">
@@ -346,7 +497,95 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.07); }
   </div>
 </footer>
 
+<div class="player" role="dialog" aria-modal="true" aria-label="Video player"><button class="player-close" type="button" aria-label="Close">&times;</button><video controls playsinline webkit-playsinline x5-playsinline></video></div>
+
 <script>
+// Videos. To serve them from elsewhere, change this one line.
+const VIDEO_BASE = 'videos/';
+const CUES = {"company_film": [[0.0, 3.0, "Today's AI is brilliant,"], [3.0, 6.17, "but it only waits for instructions."], [6.17, 10.0, "We want AI to have a will of its own."], [10.0, 13.17, "The first layer is to actively perceive the world."], [13.17, 16.67, "The second layer is to understand what things mean."], [16.67, 19.83, "The third layer is to form a sense of self."], [19.83, 23.17, "ThuRunel carries complex social behavior."], [23.17, 26.67, "Ottilie conveys social and spiritual meaning."], [26.67, 30.0, "Ekova reshapes how people see themselves."], [30.0, 33.33, "Next, we bring all three layers into one being."], [33.33, 36.33, "Then, give it a body."], [36.33, 39.83, "With a body, it steps into our world."], [39.83, 42.83, "It works and thinks like one of us."], [42.83, 45.83, "It speaks, and people listen."], [45.83, 48.33, "AI, built for everyone."]], "thurunel_film": [[0.33, 1.67, "Holding a plan worth thousands,"], [2.17, 3.67, "and feeling even more lost,"], [4.0, 5.5, "until you meet ThuRunel."], [5.83, 7.33, "It clears one path through a complex decision."], [7.67, 9.17, "It pinpoints the real issue,"], [9.5, 11.0, "links every point to its source,"], [11.5, 12.83, "and leaves the final call to you."], [13.33, 15.17, "ThuRunel, built for every decision that needs expert judgment."]], "ottilie_film": [[4.5, 6.83, "Meet Ottilie, an AI streamer who sells for brands"], [7.17, 10.83, "She is sharp and knows every product detail"], [11.17, 12.83, "She is warm and catches every word from the crowd"], [13.17, 15.33, "Ottilie passes that gift to streamers in every industry"], [20.5, 22.67, "Ottilie makes products sell better and shoppers happier"]], "ekova_film": [[2.5, 5.67, "One question. Five perspectives."]]};
+// while muted the opening film loops before its end card, so the card never sits under the headline
+const LOOP_END = { company_film: 48.4 };
+const vids = [...document.querySelectorAll('video[data-name]')];
+const player = document.querySelector('.player');
+const playerVideo = player.querySelector('video');
+let playerOpen = false;
+vids.forEach(v => { v.muted = true; v.poster = VIDEO_BASE + v.dataset.name + '.jpg'; });
+const loadVid = v => { if (!v.src) { v.src = VIDEO_BASE + v.dataset.name + '.mp4'; v.load(); } };
+const tryPlay = v => { if (playerOpen) return; loadVid(v); const p = v.play(); if (p) p.catch(() => {}); };
+const onScreen = new Set();
+const loader = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { loadVid(e.target); loader.unobserve(e.target); }
+}), { rootMargin:'600px 0px' });
+const watcher = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { onScreen.add(e.target); tryPlay(e.target); }
+  else { onScreen.delete(e.target); e.target.pause(); }
+}), { threshold:0.25 });
+vids.forEach(v => { loader.observe(v); watcher.observe(v); });
+const kick = () => onScreen.forEach(tryPlay);
+document.addEventListener('WeixinJSBridgeReady', kick);
+['touchstart','click'].forEach(t => document.addEventListener(t, kick, { once:true, passive:true }));
+// sound: one video at a time, from the beginning, with subtitles
+const setSound = (v, on) => {
+  if (on) vids.forEach(o => { if (o !== v && !o.muted) setSound(o, false); });
+  v.muted = !on;
+  v.closest('.vbox').classList.toggle('sound', on);
+  if (on) { v.currentTime = 0; tryPlay(v); }
+  paintCap(v);
+};
+const paintCap = v => {
+  const cues = CUES[v.dataset.name], end = LOOP_END[v.dataset.name], t = v.currentTime;
+  if (end) {
+    if (v.muted && t >= end) v.currentTime = 0;
+    v.closest('.hero').classList.toggle('ending', !v.muted && t >= end);
+  }
+  if (!cues) return;
+  const cap = v.parentElement.querySelector('.cap');
+  const cue = v.muted ? null : cues.find(c => t >= c[0] && t < c[1]);
+  const text = cue ? cue[2] : '';
+  if (cap.textContent !== text) cap.textContent = text;
+};
+vids.forEach(v => {
+  if (CUES[v.dataset.name]) { const c = document.createElement('div'); c.className = 'cap'; v.parentElement.append(c); }
+  v.addEventListener('timeupdate', () => paintCap(v));
+  const box = v.closest('.vbox');
+  if (box.dataset.intro) return;
+  const toggle = ev => { ev.stopPropagation(); setSound(v, v.muted); };
+  v.addEventListener('click', toggle);
+  box.querySelector('.snd').addEventListener('click', toggle);
+});
+// full vertical video with sound
+const openPlayer = name => {
+  vids.forEach(v => { if (!v.muted) setSound(v, false); v.pause(); });
+  playerOpen = true;
+  player.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  playerVideo.src = VIDEO_BASE + name + '.mp4';
+  playerVideo.poster = VIDEO_BASE + name + '.jpg';
+  const p = playerVideo.play(); if (p) p.catch(() => {});
+};
+const closePlayer = () => {
+  playerVideo.pause();
+  playerVideo.removeAttribute('src');
+  playerVideo.load();
+  player.classList.remove('open');
+  document.body.style.overflow = '';
+  playerOpen = false;
+  onScreen.forEach(tryPlay);
+};
+document.querySelectorAll('[data-intro]').forEach(el => el.addEventListener('click', () => openPlayer(el.dataset.intro)));
+player.querySelector('.player-close').addEventListener('click', closePlayer);
+player.addEventListener('click', ev => { if (ev.target === player) closePlayer(); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && playerOpen) closePlayer(); });
+// mobile menu
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+navToggle.addEventListener('click', () => {
+  navToggle.setAttribute('aria-expanded', navLinks.classList.toggle('open'));
+});
+navLinks.addEventListener('click', ev => {
+  if (ev.target.tagName === 'A') { navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); }
+});
+
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 10);
